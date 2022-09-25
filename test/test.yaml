@@ -1,5 +1,5 @@
 command:
-  - ./langton.out
+  - ./langton
 tests:
   - name: "prints grid of size 1"
     args:
@@ -43,16 +43,47 @@ tests:
       .^.
       ...
       ...
-  - name: "prints ant facing north at centre of grid"
+  - name: "prints ant facing north at position -1, 0 in 3x3 grid"
     args:
       - '3'
-      - '5'
+      - '3'
+      - '-1'
       - '0'
+      - "north"
+    stdout: |
+      ...
+      ^..
+      ...
+  - name: "prints ant facing north at position 1, 0 in 3x3 grid"
+    args:
+      - '3'
+      - '3'
+      - '1'
       - '0'
+      - "north"
+    stdout: |
+      ...
+      ..^
+      ...
+  - name: "prints ant facing north at position 0, -1 in 3x3 grid"
+    args:
+      - '3'
+      - '3'
+      - '0'
+      - '-1'
+      - "north"
+    stdout: |
+      .^.
+      ...
+      ...
+  - name: "prints ant facing north at position 0, 1 in 3x3 grid"
+    args:
+      - '3'
+      - '3'
+      - '0'
+      - '1'
       - "north"
     stdout: |
       ...
       ...
       .^.
-      ...
-      ...

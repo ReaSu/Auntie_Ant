@@ -47,11 +47,13 @@ int getdirection(char direction[]) {
 }
 
 void printGrid(int* size, int* position, int direction) {
-   int y_centre = floor((size[1]-1)/2);
-   int x_centre = floor((size[0]-1)/2);
+   int y_0 = floor((size[1]-1)/2);
+   int x_0 = floor((size[0]-1)/2);
+   int x_pos = x_0 + position[0];
+   int y_pos = y_0 + position[1];
    for(int i = 0; i < size[1]; i++) {
-      if(i == y_centre) {
-         printLineWithAnt(size[0], x_centre);
+      if(i == y_pos) {
+         printLineWithAnt(size[0], x_pos);
       } else {
          printLineOfLength(size[0]);
       }
