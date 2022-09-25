@@ -1,0 +1,56 @@
+command:
+  - ./langton.out
+tests:
+  - name: "prints field of size 1"
+    args:
+      - '1'
+    stdout: |
+      .
+  - name: "prints field of size 2"
+    args:
+      - '2'
+    stdout: |
+      ..
+  - name: "prints field of size 3"
+    args:
+      - '3'
+    stdout: |
+      ...
+  - name: "error if no size param provided"
+    stdout: |
+      Please specify size.
+    exit-status: 2
+  - name: "prints 1 by 1 field"
+    args:
+      - '1'
+      - '1'
+    stdout: |
+      .
+  - name: "prints 2 by 2 field"
+    args:
+      - '2'
+      - '2'
+    stdout: |
+      ..
+      ..
+  - name: "prints 3 by 5 field"
+    args:
+      - '3'
+      - '5'
+    stdout: |
+      ...
+      ...
+      ...
+      ...
+      ...
+
+  - name: "prints 3 by 5 field"
+    args:
+      - '3'
+      - '5'
+    stdout: |
+      ...
+      ...
+      ...
+      ...
+      ...
