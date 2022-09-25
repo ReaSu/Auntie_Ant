@@ -1,56 +1,58 @@
 command:
   - ./langton.out
 tests:
-  - name: "prints field of size 1"
+  - name: "prints grid of size 1"
     args:
       - '1'
     stdout: |
-      .
-  - name: "prints field of size 2"
+      ^
+  - name: "prints grid of size 2"
     args:
       - '2'
     stdout: |
-      ..
-  - name: "prints field of size 3"
+      ^.
+  - name: "prints grid of size 3"
     args:
       - '3'
     stdout: |
-      ...
+      .^.
   - name: "error if no size param provided"
     stdout: |
       Please specify size.
     exit-status: 2
-  - name: "prints 1 by 1 field"
+  - name: "prints 1 by 1 grid"
     args:
       - '1'
       - '1'
     stdout: |
-      .
-  - name: "prints 2 by 2 field"
+      ^
+  - name: "prints 2 by 2 grid"
     args:
       - '2'
       - '2'
     stdout: |
+      ^.
       ..
-      ..
-  - name: "prints 3 by 5 field"
+  - name: "prints 3 by 5 grid"
     args:
       - '3'
       - '5'
     stdout: |
       ...
       ...
+      .^.
       ...
       ...
-      ...
-
-  - name: "prints 3 by 5 field"
+  - name: "prints ant facing north at centre of grid"
     args:
       - '3'
       - '5'
+      - '0'
+      - '0'
+      - "north"
     stdout: |
       ...
       ...
-      ...
+      .^.
       ...
       ...
