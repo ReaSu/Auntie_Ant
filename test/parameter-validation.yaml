@@ -1,0 +1,75 @@
+command:
+  - ./langton
+tests:
+  - name: "illegal direction prints error message"
+    args:
+      - '1'
+      - '1'
+      - '0'
+      - '0'
+      - "wearth"
+    exit-status: 1
+    stdout:
+      contains: "invalid direction"
+  - name: "negative x size prints error message"
+    args:
+      - '-1'
+      - '1'
+    exit-status: 1
+    stdout:
+      contains: "invalid size"
+  - name: "negative y size prints error message"
+    args:
+      - '1'
+      - '-1'
+    exit-status: 1
+    stdout:
+      contains: "invalid size"
+  - name: "zero x size prints error message"
+    args:
+      - '0'
+      - '1'
+    exit-status: 1
+    stdout:
+      contains: "invalid size"
+  - name: "zero y size prints error message"
+    args:
+      - '3'
+      - '0'
+    exit-status: 1
+    stdout:
+      contains: "invalid size"
+  - name: "x position too small prints error message"
+    args:
+      - '4'
+      - '4'
+      - '-2'
+    exit-status: 1
+    stdout:
+      contains: "invalid position"
+  - name: "y position too small prints error message"
+    args:
+      - '4'
+      - '4'
+      - '2'
+      - '-2'
+    exit-status: 1
+    stdout:
+      contains: "invalid position"
+  - name: "x position too large prints error message"
+    args:
+      - '4'
+      - '4'
+      - '3'
+    exit-status: 1
+    stdout:
+      contains: "invalid position"
+  - name: "y position too large prints error message"
+    args:
+      - '4'
+      - '4'
+      - '0'
+      - '3'
+    exit-status: 1
+    stdout:
+      contains: "invalid position"
