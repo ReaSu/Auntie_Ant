@@ -6,8 +6,8 @@ int relativeZero(int size);
 int relativePosition(int size, int position);
 
 void print(World* world) {
-   int x_pos = relativePosition(world->size.x, world->position[0]);
-   int y_pos = relativePosition(world->size.y, world->position[1]);
+   int x_pos = relativePosition(world->size.x, world->pos.x);
+   int y_pos = relativePosition(world->size.y, world->pos.y);
    for(int i = 0; i < world->size.y; i++) {
       if(i == y_pos) {
          printLineWithAnt(world->size.x, x_pos, world->direction);

@@ -13,8 +13,13 @@ typedef struct {
 } Size;
 
 typedef struct {
+   int x;
+   int y;
+} Position;
+
+typedef struct {
    Size size;
-   int position[2];
+   Position pos;
    int direction;
 } World;
 
@@ -38,9 +43,9 @@ int validate(World* world) {
    int upperBoundary = ((world->size.y-1)/2) * -1;
    int lowerBoundary = world->size.y/2;
    
-   if(world->position[0] < leftBoundary || rightBoundary < world->position[0]
-   || world->position[1] < upperBoundary || lowerBoundary < world->position[1]) {
-      printf("invalid position: %d, %d\n", world->position[0], world->position[1]);
+   if(world->pos.x < leftBoundary || rightBoundary < world->pos.x
+   || world->pos.y < upperBoundary || lowerBoundary < world->pos.y) {
+      printf("invalid position: %d, %d\n", world->pos.x, world->pos.y);
       return FALSE;
    }
       
@@ -74,14 +79,14 @@ void getSize(int argc, char* argv[], World* world) {
 
 void getPosition(int argc, char* argv[], World* world) {
    if(argc >= 4) {
-      world->position[0] = convertToInt(argv[3]);
+      world->pos.x = convertToInt(argv[3]);
    } else {
-      world->position[0] = DEFAULT_POSITION;
+      world->pos.x = DEFAULT_POSITION;
    }
    if(argc >= 5) {
-      world->position[1] = convertToInt(argv[4]);
+      world->pos.y = convertToInt(argv[4]);
    } else {
-      world->position[1] = DEFAULT_POSITION;
+      world->pos.y = DEFAULT_POSITION;
    }
 }
 
