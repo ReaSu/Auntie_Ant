@@ -13,16 +13,16 @@ typedef struct {
    int direction;
 } World;
 
-int validateParams(int direction, World* world);
-int handleParameters(int argc, char* argv[], int* direction, World* world);
+int validate(World* world);
+int handleParameters(int argc, char* argv[], World* world);
 void getSize(int argc, char* argv[], World* world);
 void getPosition(int argc, char* argv[], World* world);
-void getDirection(int argc, char* argv[], int* direction);
+void getDirection(int argc, char* argv[], World* world);
 int convertToInt(char* string);
 int convertDirection(char direction[]);
 
 
-int validateParams(int direction, World* world) {
+int validate(World* world) {
    if(world->size[0] < 1 || world->size[1] < 1) {
       printf("invalid size: %d, %d\n", world->size[0], world->size[1]);
       return FALSE;
@@ -39,18 +39,18 @@ int validateParams(int direction, World* world) {
       return FALSE;
    }
       
-   if(direction < 0) {
-      printf("invalid direction: %d\n", direction);
+   if(world->direction < 0) {
+      printf("invalid direction: %d\n", world->direction);
       return FALSE;
    }
    return TRUE;
 }
 
-int handleParameters(int argc, char* argv[], int* direction, World* world) {
+int handleParameters(int argc, char* argv[], World* world) {
 
    getSize(argc, argv, world);
    getPosition(argc, argv, world);
-   getDirection(argc, argv, direction);
+   getDirection(argc, argv, world);
    return 0;
 }
 
@@ -80,11 +80,11 @@ void getPosition(int argc, char* argv[], World* world) {
    }
 }
 
-void getDirection(int argc, char* argv[], int* direction) {
+void getDirection(int argc, char* argv[], World* world) {
    if(argc >= 6) {
-      *direction = convertDirection(argv[5]);
+      world->direction = convertDirection(argv[5]);
    } else {
-      *direction = DEFAULT_DIRECTION;
+      world->direction = DEFAULT_DIRECTION;
    }
 }
 

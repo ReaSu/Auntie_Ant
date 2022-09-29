@@ -7,14 +7,13 @@
 
 int main(int argc, char* argv[]) {
    World world;
-   int direction;
-   handleParameters(argc, argv, &direction, &world);
-   int validParams = validateParams(direction, &world);
+   handleParameters(argc, argv, &world);
+   int validParams = validate(&world);
    
    if(validParams == FALSE) {
       return EXIT_FAILURE;
    }
-   printGrid(direction, &world);
+   printGrid(&world);
    return EXIT_SUCCESS;
 }
 
