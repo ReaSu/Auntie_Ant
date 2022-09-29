@@ -7,25 +7,31 @@ enum dir {NORTH, EAST, SOUTH, WEST};
 #define DEFAULT_POSITION 0
 #define DEFAULT_DIRECTION 0
 
-int validateParams(int size[], int position[], int direction);
-int handleParameters(int argc, char* argv[], int* size, int* position, int* direction);
-void getSize(int argc, char* argv[], int size[]);
+typedef struct {
+   int size[2];
+   int position[2];
+   int direction;
+} World;
+
+int validateParams(int position[], int direction, World* world);
+int handleParameters(int argc, char* argv[], int* position, int* direction, World* world);
+void getSize(int argc, char* argv[], World* world);
 void getPosition(int argc, char* argv[], int position[]);
 void getDirection(int argc, char* argv[], int* direction);
 int convertToInt(char* string);
 int convertDirection(char direction[]);
 
 
-int validateParams(int size[], int position[], int direction) {
-   if(size[0] < 1 || size[1] < 1) {
-      printf("invalid size: %d, %d\n", size[0], size[1]);
+int validateParams(int position[], int direction, World* world) {
+   if(world->size[0] < 1 || world->size[1] < 1) {
+      printf("invalid size: %d, %d\n", world->size[0], world->size[1]);
       return FALSE;
    }
    
-   int leftBoundary = ((size[0]-1)/2) * -1;
-   int rightBoundary = size[0]/2;
-   int upperBoundary = ((size[1]-1)/2) * -1;
-   int lowerBoundary = size[1]/2;
+   int leftBoundary = ((world->size[0]-1)/2) * -1;
+   int rightBoundary = world->size[0]/2;
+   int upperBoundary = ((world->size[1]-1)/2) * -1;
+   int lowerBoundary = world->size[1]/2;
    
    if(position[0] < leftBoundary || rightBoundary < position[0]
    || position[1] < upperBoundary || lowerBoundary < position[1]) {
@@ -40,24 +46,24 @@ int validateParams(int size[], int position[], int direction) {
    return TRUE;
 }
 
-int handleParameters(int argc, char* argv[], int* size, int* position, int* direction) {
+int handleParameters(int argc, char* argv[], int* position, int* direction, World* world) {
 
-   getSize(argc, argv, size);
+   getSize(argc, argv, world);
    getPosition(argc, argv, position);
    getDirection(argc, argv, direction);
    return 0;
 }
 
-void getSize(int argc, char* argv[], int size[]) {
+void getSize(int argc, char* argv[], World* world) {
    if(argc>=2) {
-      size[0] = convertToInt(argv[1]);
+      world->size[0] = convertToInt(argv[1]);
    } else {
-      size[0] = DEFAULT_SIZE;
+      world->size[0] = DEFAULT_SIZE;
    }
    if(argc >= 3) {
-      size[1] = convertToInt(argv[2]);
+      world->size[1] = convertToInt(argv[2]);
    } else {
-      size[1] = DEFAULT_SIZE;
+      world->size[1] = DEFAULT_SIZE;
    }
 }
 

@@ -1,18 +1,18 @@
-void printGrid(int* size, int* position, int direction);
+void printGrid(int* position, int direction, World* world);
 void printLineOfLength(int length);
 void printLineWithAnt(int length, int ant, int direction);
 void printAnt(int direction);
 int relativeZero(int size);
 int relativePosition(int size, int position);
 
-void printGrid(int* size, int* position, int direction) {
-   int x_pos = relativePosition(size[0], position[0]);
-   int y_pos = relativePosition(size[1], position[1]);
-   for(int i = 0; i < size[1]; i++) {
+void printGrid(int* position, int direction, World* world) {
+   int x_pos = relativePosition(world->size[0], position[0]);
+   int y_pos = relativePosition(world->size[1], position[1]);
+   for(int i = 0; i < world->size[1]; i++) {
       if(i == y_pos) {
-         printLineWithAnt(size[0], x_pos, direction);
+         printLineWithAnt(world->size[0], x_pos, direction);
       } else {
-         printLineOfLength(size[0]);
+         printLineOfLength(world->size[0]);
       }
    }
 }
