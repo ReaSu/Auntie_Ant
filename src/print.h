@@ -1,11 +1,11 @@
-void printGrid(World* world);
+void print(World* world);
 void printLineOfLength(int length);
 void printLineWithAnt(int length, int ant, int direction);
 void printAnt(int direction);
 int relativeZero(int size);
 int relativePosition(int size, int position);
 
-void printGrid(World* world) {
+void print(World* world) {
    int x_pos = relativePosition(world->size[0], world->position[0]);
    int y_pos = relativePosition(world->size[1], world->position[1]);
    for(int i = 0; i < world->size[1]; i++) {

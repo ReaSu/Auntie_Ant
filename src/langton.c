@@ -8,12 +8,12 @@
 int main(int argc, char* argv[]) {
    World world;
    handleParameters(argc, argv, &world);
-   int validParams = validate(&world);
+   int isValid = validate(&world);
    
-   if(validParams == FALSE) {
+   if(isValid == FALSE) {
       return EXIT_FAILURE;
    }
-   printGrid(&world);
+   print(&world);
    return EXIT_SUCCESS;
 }
 
