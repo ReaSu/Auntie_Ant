@@ -8,7 +8,12 @@ enum dir {NORTH, EAST, SOUTH, WEST};
 #define DEFAULT_DIRECTION 0
 
 typedef struct {
-   int size[2];
+   int x;
+   int y;
+} Size;
+
+typedef struct {
+   Size size;
    int position[2];
    int direction;
 } World;
@@ -23,15 +28,15 @@ int convertDirection(char direction[]);
 
 
 int validate(World* world) {
-   if(world->size[0] < 1 || world->size[1] < 1) {
-      printf("invalid size: %d, %d\n", world->size[0], world->size[1]);
+   if(world->size.x < 1 || world->size.y < 1) {
+      printf("invalid size: %d, %d\n", world->size.x, world->size.y);
       return FALSE;
    }
    
-   int leftBoundary = ((world->size[0]-1)/2) * -1;
-   int rightBoundary = world->size[0]/2;
-   int upperBoundary = ((world->size[1]-1)/2) * -1;
-   int lowerBoundary = world->size[1]/2;
+   int leftBoundary = ((world->size.x-1)/2) * -1;
+   int rightBoundary = world->size.x/2;
+   int upperBoundary = ((world->size.y-1)/2) * -1;
+   int lowerBoundary = world->size.y/2;
    
    if(world->position[0] < leftBoundary || rightBoundary < world->position[0]
    || world->position[1] < upperBoundary || lowerBoundary < world->position[1]) {
@@ -56,14 +61,14 @@ int handleParameters(int argc, char* argv[], World* world) {
 
 void getSize(int argc, char* argv[], World* world) {
    if(argc>=2) {
-      world->size[0] = convertToInt(argv[1]);
+      world->size.x = convertToInt(argv[1]);
    } else {
-      world->size[0] = DEFAULT_SIZE;
+      world->size.x = DEFAULT_SIZE;
    }
    if(argc >= 3) {
-      world->size[1] = convertToInt(argv[2]);
+      world->size.y = convertToInt(argv[2]);
    } else {
-      world->size[1] = DEFAULT_SIZE;
+      world->size.y = DEFAULT_SIZE;
    }
 }
 

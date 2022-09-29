@@ -6,13 +6,13 @@ int relativeZero(int size);
 int relativePosition(int size, int position);
 
 void print(World* world) {
-   int x_pos = relativePosition(world->size[0], world->position[0]);
-   int y_pos = relativePosition(world->size[1], world->position[1]);
-   for(int i = 0; i < world->size[1]; i++) {
+   int x_pos = relativePosition(world->size.x, world->position[0]);
+   int y_pos = relativePosition(world->size.y, world->position[1]);
+   for(int i = 0; i < world->size.y; i++) {
       if(i == y_pos) {
-         printLineWithAnt(world->size[0], x_pos, world->direction);
+         printLineWithAnt(world->size.x, x_pos, world->direction);
       } else {
-         printLineOfLength(world->size[0]);
+         printLineOfLength(world->size.x);
       }
    }
 }
