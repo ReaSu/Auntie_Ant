@@ -13,16 +13,16 @@ typedef struct {
    int direction;
 } World;
 
-int validateParams(int position[], int direction, World* world);
-int handleParameters(int argc, char* argv[], int* position, int* direction, World* world);
+int validateParams(int direction, World* world);
+int handleParameters(int argc, char* argv[], int* direction, World* world);
 void getSize(int argc, char* argv[], World* world);
-void getPosition(int argc, char* argv[], int position[]);
+void getPosition(int argc, char* argv[], World* world);
 void getDirection(int argc, char* argv[], int* direction);
 int convertToInt(char* string);
 int convertDirection(char direction[]);
 
 
-int validateParams(int position[], int direction, World* world) {
+int validateParams(int direction, World* world) {
    if(world->size[0] < 1 || world->size[1] < 1) {
       printf("invalid size: %d, %d\n", world->size[0], world->size[1]);
       return FALSE;
@@ -33,9 +33,9 @@ int validateParams(int position[], int direction, World* world) {
    int upperBoundary = ((world->size[1]-1)/2) * -1;
    int lowerBoundary = world->size[1]/2;
    
-   if(position[0] < leftBoundary || rightBoundary < position[0]
-   || position[1] < upperBoundary || lowerBoundary < position[1]) {
-      printf("invalid position: %d, %d\n", position[0], position[1]);
+   if(world->position[0] < leftBoundary || rightBoundary < world->position[0]
+   || world->position[1] < upperBoundary || lowerBoundary < world->position[1]) {
+      printf("invalid position: %d, %d\n", world->position[0], world->position[1]);
       return FALSE;
    }
       
@@ -46,10 +46,10 @@ int validateParams(int position[], int direction, World* world) {
    return TRUE;
 }
 
-int handleParameters(int argc, char* argv[], int* position, int* direction, World* world) {
+int handleParameters(int argc, char* argv[], int* direction, World* world) {
 
    getSize(argc, argv, world);
-   getPosition(argc, argv, position);
+   getPosition(argc, argv, world);
    getDirection(argc, argv, direction);
    return 0;
 }
@@ -67,16 +67,16 @@ void getSize(int argc, char* argv[], World* world) {
    }
 }
 
-void getPosition(int argc, char* argv[], int position[]) {
+void getPosition(int argc, char* argv[], World* world) {
    if(argc >= 4) {
-      position[0] = convertToInt(argv[3]);
+      world->position[0] = convertToInt(argv[3]);
    } else {
-      position[0] = DEFAULT_POSITION;
+      world->position[0] = DEFAULT_POSITION;
    }
    if(argc >= 5) {
-      position[1] = convertToInt(argv[4]);
+      world->position[1] = convertToInt(argv[4]);
    } else {
-      position[1] = DEFAULT_POSITION;
+      world->position[1] = DEFAULT_POSITION;
    }
 }
 
