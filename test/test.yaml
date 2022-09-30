@@ -1,27 +1,30 @@
-command:
+command: 
   - ./langton
-tests: 
-  - name: "north facing ant faces left after one tic"
-    args:
-      - '4'
-      - '4'
-      - '0'
-      - '0'
-      - "north"
-      - '1'
-    stdout: 
-      contains: ">"
-  - name: "first cell is black after one tic"
-    args:
-      - '4'
-      - '4'
-      - '0'
-      - '0'
-      - "north"
-      - '1'
+
+tests:
+  - name: four-by-four grid one step
+    stdin: |
+      4
+      4
+      1
     stdout: |
+      width: 
+      height: 
+      steps: 
       ....
-      .x>.
+      .#>.
       ....
       ....
-    
+  - name: three-by-three grid one step
+    stdin: |
+      3
+      3
+      1
+    stdout: |
+      width: 
+      height: 
+      steps: 
+      ...
+      .#>
+      ...
+
