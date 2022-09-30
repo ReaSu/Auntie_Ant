@@ -1,3 +1,27 @@
 command:
   - ./langton
-tests: []
+tests: 
+  - name: "north facing ant faces left after one tic"
+    args:
+      - '4'
+      - '4'
+      - '0'
+      - '0'
+      - "north"
+      - '1'
+    stdout: 
+      contains: ">"
+  - name: "first cell is black after one tic"
+    args:
+      - '4'
+      - '4'
+      - '0'
+      - '0'
+      - "north"
+      - '1'
+    stdout: |
+      ....
+      .x>.
+      ....
+      ....
+    
