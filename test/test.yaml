@@ -27,4 +27,52 @@ tests:
       ...
       .#>
       ...
-
+  - name: five-by-five grid one step
+    stdin: |
+      5
+      5
+      1
+    stdout: |
+      width: 
+      height: 
+      steps: 
+      .....
+      .....
+      ..#>.
+      .....
+      .....
+  - name: one-by-one grid no steps
+    stdin: |
+      1
+      1
+      0
+    stdout: |
+      width: 
+      height: 
+      steps: 
+      ^
+  - name: three-by-three grid two steps
+    stdin: |
+      3
+      3
+      2
+    stdout: |
+      width: 
+      height: 
+      steps: 
+      ...
+      .##
+      ..v
+  - name: three-by-three grid three steps
+    ignored: true
+    stdin: |
+      3
+      3
+      3
+    stdout: |
+      width: 
+      height: 
+      steps: 
+      ...
+      .##
+      .<#
