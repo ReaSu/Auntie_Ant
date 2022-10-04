@@ -7,4 +7,4 @@ If you want to know more about this project, have a look at my [blog](https://ww
 If you want to pair with me on this, please let me know! I'd be thrilled to get some input.
 
 ## Languages so far:
-- [C](), testing with [Samir Talwar's Smoke](https://github.com/SamirTalwar/smoke)
+- [C](https://github.com/ReaSu/Auntie_Ant/tree/c-with-smoke), testing with [Samir Talwar's Smoke](https://github.com/SamirTalwar/smoke)
