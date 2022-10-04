@@ -6,6 +6,7 @@ enum dir {NORTH, EAST, SOUTH, WEST};
 
 #define BLACK '#'
 #define WHITE '_'
+#define EMPTY '.'
 
 void getParams(int* width, int* height, int* steps);
 void initialise(char** grid, int width, int height);
@@ -27,20 +28,26 @@ int main(int argc, char* argv[]) {
    for(int i = 0; i < width; i++) {
       grid[i] = malloc(width * sizeof(*grid[i]));
    }
-   
+   // TODO linked list anstatt 2d-array?
    initialise(grid, width, height);
    
    int y0 = centre(height);
    int x0 = centre(width);
+   // TODO invert direction on black fields
    
    for(int i = 0; i < steps; i++) {
       int old_x = x0;
       int old_y = y0;
-      direction += 1;
-      x0 = newX(x0, direction);
-      y0 = newY(y0, direction);
-      grid[y0][x0] = antHead(direction);
-      grid[old_y][old_x] = BLACK;
+   // comparison  always fails because current field contains ant head, not colour symbol!
+      if(grid[y0][x0] == EMPTY) {
+         direction = (direction + 1) % 4;
+         x0 = newX(x0, direction);
+         y0 = newY(y0, direction);
+         grid[y0][x0] = antHead(direction);
+         grid[old_y][old_x] = BLACK;
+      } else {
+         printf("vergleich war negativ. %c\n", grid[old_y][old_x]);
+      }
    }
    
    print(grid, width, height);
@@ -86,7 +93,7 @@ void getParams(int* width, int* height, int* steps) {
 void initialise(char** grid, int width, int height) {
    for(int i = 0; i < height; i++) {
       for(int j = 0; j < width; j++) {
-         grid[i][j] = '.';
+         grid[i][j] = EMPTY;
       }
    }
    int y0 = centre(height);

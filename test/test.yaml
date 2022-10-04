@@ -64,7 +64,6 @@ tests:
       .##
       ..v
   - name: three-by-three grid three steps
-    ignored: true
     stdin: |
       3
       3
@@ -76,3 +75,27 @@ tests:
       ...
       .##
       .<#
+  - name: three-by-three grid four steps
+    stdin: |
+      3
+      3
+      4
+    stdout: |
+      width: 
+      height: 
+      steps: 
+      ...
+      .^#
+      .##
+  - name: three-by-three grid five steps
+    stdin: |
+      3
+      3
+      5
+    stdout: |
+      width: 
+      height: 
+      steps: 
+      ...
+      <_#
+      .##
