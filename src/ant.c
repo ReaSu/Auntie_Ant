@@ -17,7 +17,8 @@ typedef struct {
 
 void getParams(int* width, int* height, int* steps);
 void initialise(Field** grid, int width, int height);
-int centre(int width);
+int centre(int dimension);
+void update(Field** grid, int current_x, int current_y, int* new_x, int* new_y, int direction, char colour);
 int newX(int x, int direction);
 int newY(int y, int direction);
 void print(Field** grid, int width, int height);
@@ -25,7 +26,7 @@ char antHead(int dir);
 void deallocate(Field** grid, int width);
 
 int main(int argc, char* argv[]) {
-   int direction = WEST;
+   int direction = NORTH;
    int width, height, steps;
    getParams(&width, &height, &steps);
    
@@ -37,34 +38,62 @@ int main(int argc, char* argv[]) {
    // TODO linked list anstatt 2d-array?
    initialise(grid, width, height);
    
-   int y0 = centre(height);
-   int x0 = centre(width);
-   // TODO invert direction on black fields
+   int new_y = centre(height);
+   int new_x = centre(width);
    
    for(int i = 0; i < steps; i++) {
-      int old_x = x0;
-      int old_y = y0;
-      if(grid[y0][x0].colour == EMPTY || grid[y0][x0].colour == WHITE) {
+      int current_x = new_x;
+      int current_y = new_y;
+      char colour;
+      if(grid[new_y][new_x].colour == EMPTY || grid[new_y][new_x].colour == WHITE) {
          direction = (direction + 1) % 4;
-         x0 = newX(x0, direction);
-         y0 = newY(y0, direction);
-         grid[old_y][old_x].colour = BLACK;
-         grid[old_y][old_x].symbol = BLACK;
-         grid[y0][x0].direction = direction;
-         grid[y0][x0].symbol = antHead(direction);
+         colour = BLACK;
       } else {
          direction = (direction + 3) % 4;
-         x0 = newX(x0, direction);
-         y0 = newY(y0, direction);
-         grid[old_y][old_x].colour = WHITE;
-         grid[old_y][old_x].symbol = WHITE;
-         grid[y0][x0].direction = direction;
-         grid[y0][x0].symbol = antHead(direction);
+         colour = WHITE;
       }
+      update(grid, current_x, current_y, &new_x, &new_y, direction, colour);
    }
    
    print(grid, width, height);
    deallocate(grid, width);
+}
+
+void getParams(int* width, int* height, int* steps) {
+   printf("width: ");
+   scanf("%d", width);
+   printf("height: ");
+   scanf("%d", height);
+   printf("steps: ");
+   scanf("%d", steps);
+   printf("\n");   
+}
+
+void initialise(Field** grid, int width, int height) {
+   for(int i = 0; i < height; i++) {
+      for(int j = 0; j < width; j++) {
+         grid[i][j].colour = EMPTY;
+         grid[i][j].symbol = EMPTY;
+      }
+   }
+   int new_y = centre(height);
+   int new_x = centre(width);
+   
+   grid[new_y][new_x].direction = NORTH;
+   grid[new_y][new_x].symbol = antHead(NORTH);
+}
+
+int centre(int dimension) {
+   return (dimension-1)/2;
+}
+
+void update(Field** grid, int current_x, int current_y, int* new_x, int* new_y, int direction, char colour) {
+   *new_x = newX(current_x, direction);
+   *new_y = newY(current_y, direction);
+   grid[current_y][current_x].colour = colour;
+   grid[current_y][current_x].symbol = colour;
+   grid[*new_y][*new_x].direction = direction;
+   grid[*new_y][*new_x].symbol = antHead(direction);
 }
 
 int newX(int x, int direction) {
@@ -86,35 +115,6 @@ int newY(int y, int direction) {
       default:
          return y;
    }
-}
-
-int centre(int width) {
-   return (width-1)/2;
-}
-
-void getParams(int* width, int* height, int* steps) {
-   printf("width: ");
-   scanf("%d", width);
-   printf("height: ");
-   scanf("%d", height);
-   printf("steps: ");
-   scanf("%d", steps);
-   printf("\n");
-   
-}
-
-void initialise(Field** grid, int width, int height) {
-   for(int i = 0; i < height; i++) {
-      for(int j = 0; j < width; j++) {
-         grid[i][j].colour = EMPTY;
-         grid[i][j].symbol = EMPTY;
-      }
-   }
-   int y0 = centre(height);
-   int x0 = centre(width);
-   
-   grid[y0][x0].direction = NORTH;
-   grid[y0][x0].symbol = antHead(NORTH);
 }
 
 void print(Field** grid, int width, int height) {
